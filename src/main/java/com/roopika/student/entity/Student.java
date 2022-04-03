@@ -1,14 +1,14 @@
 package com.roopika.student.entity;
 
+import com.roopika.student.VO.Course;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,4 +25,5 @@ public class Student {
     private Long departmentId;
     private String gender;
     private Date admissionDate;
+    private int currentSemester;
 }
