@@ -1,14 +1,12 @@
 package com.roopika.student.entity;
 
-import com.roopika.student.VO.Course;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -18,12 +16,20 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private Long studentId;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
+    @Column(nullable = false)
     private String emailAddress;
+    @Column(nullable = false)
     private Long departmentId;
     private String gender;
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     private Date admissionDate;
+    @Column(columnDefinition = "integer default 1")
     private int currentSemester;
 }
