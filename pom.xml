@@ -9,7 +9,7 @@
 		<version>2.6.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.roopika</groupId>
+	<groupId>bits.scalableservices</groupId>
 	<artifactId>student-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>student-service</name>
