@@ -1,11 +1,12 @@
-package com.roopika.student.VO;
+package com.bits.scalableservices.student.VO;
 
-import com.roopika.student.entity.Student;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
+import com.bits.scalableservices.student.entity.Student;
 
 @Data
 @AllArgsConstructor

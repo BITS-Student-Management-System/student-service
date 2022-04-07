@@ -1,12 +1,16 @@
-package com.roopika.student;
+package com.bits.scalableservices.student;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.client.RestTemplate;
 
+import com.bits.scalableservices.student.config.DozerMappingConfig;
+
 @SpringBootApplication
+@Import(DozerMappingConfig.class)
 public class StudentServiceApplication {
 
 	public static void main(String[] args) {
@@ -16,7 +20,7 @@ public class StudentServiceApplication {
 
 	@Bean
 	@LoadBalanced
-	RestTemplate restTemplate(){
+	RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
 }

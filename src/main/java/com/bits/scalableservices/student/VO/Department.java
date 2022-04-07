@@ -1,4 +1,4 @@
-package com.roopika.student.VO;
+package com.bits.scalableservices.student.VO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.roopika.student.entity;
+package com.bits.scalableservices.student.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
