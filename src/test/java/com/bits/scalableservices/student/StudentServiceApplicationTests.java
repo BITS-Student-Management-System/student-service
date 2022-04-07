@@ -8,8 +8,8 @@ import java.net.URISyntaxException;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
-import javax.jms.TextMessage;
 
+import org.apache.activemq.broker.BrokerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -17,6 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.core.JmsTemplate;
@@ -27,7 +29,7 @@ import com.bits.scalableservices.student.entity.Student;
 import com.bits.scalableservices.student.repository.StudentRepository;
 
 @EnableAutoConfiguration
-@Import(JMSConfig.class)
+@Import({ JMSConfig.class, TestConfig.class })
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @EnableJms
 class StudentServiceApplicationTests {
@@ -63,5 +65,17 @@ class StudentServiceApplicationTests {
 
 		Message message = jmsTemplate.receive("department-queue");
 		assertNotNull(message);
+	}
+}
+
+@Configuration
+class TestConfig {
+
+	@Bean
+	public BrokerService broker() throws Exception {
+		BrokerService broker = new BrokerService();
+		broker.addConnector("tcp://localhost:61616");
+		broker.setPersistent(false);
+		return broker;
 	}
 }
