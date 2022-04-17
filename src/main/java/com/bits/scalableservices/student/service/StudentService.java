@@ -42,6 +42,7 @@ public class StudentService {
 	public Student saveStudent(StudentRequest studentRequest) {
 		log.info("Inside saveStudent of StudentService");
 		Student student = studentRepository.save(mapper.map(studentRequest, Student.class));
+		log.info("Sending JMS message to Department Service");
 		pushMessageIntoQueueByActiveMQ(studentRequest.getDepartmentId());
 		return student;
 	}
@@ -50,8 +51,8 @@ public class StudentService {
 	 * Adding JMS ActiveMQ Part, pushing message into Queue
 	 */
 	private void pushMessageIntoQueueByActiveMQ(Long departmentId) {
-
 		jmsTemplate.convertAndSend(queue, String.valueOf(departmentId));
+		log.info("Sent student department details to Department Service");
 
 	}
 
