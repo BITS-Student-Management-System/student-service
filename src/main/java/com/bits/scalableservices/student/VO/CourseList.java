@@ -9,6 +9,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseList{
+public class CourseList {
     private List<Course> courses;
 }

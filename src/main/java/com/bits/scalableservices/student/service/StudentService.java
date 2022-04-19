@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.jms.Queue;
 
+import com.bits.scalableservices.student.client.CourseClient;
+import com.bits.scalableservices.student.client.DepartmentClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
@@ -39,6 +41,12 @@ public class StudentService {
 	@Autowired
 	Mapper mapper;
 
+	@Autowired
+	DepartmentClient departmentClient;
+
+	@Autowired
+	CourseClient courseClient;
+
 	public Student saveStudent(StudentRequest studentRequest) {
 		log.info("Inside saveStudent of StudentService");
 		Student student = studentRepository.save(mapper.map(studentRequest, Student.class));
@@ -66,17 +74,12 @@ public class StudentService {
 		ResponseTemplate responseTemplate = new ResponseTemplate();
 		Student student = studentRepository.findByStudentId(studentId);
 
-		Department department = restTemplate
-				.getForObject("http://DEPARTMENT-SERVICE/departments/" + student.getDepartmentId(), Department.class);
+//		Department department = restTemplate
+//				.getForObject("http://DEPARTMENT-SERVICE/departments/" + student.getDepartmentId(), Department.class);
+//
 
-//        CourseList courseList =
-//                restTemplate.getForObject(
-//                        "http://COURSE-SERVICE/courses/" + student.getCurrentSemester(),
-//                        CourseList.class
-//                );
-		List<Course> coursesList = new ArrayList<>();
-		// courseList.getCourses();
-
+		Department department =  departmentClient.getDepartmentDetails(student.getDepartmentId());
+		List<Course> coursesList = courseClient.getCourseDetails(student.getDepartmentId());
 		responseTemplate.setStudent(student);
 		responseTemplate.setDepartment(department);
 		responseTemplate.setCourses(coursesList);
