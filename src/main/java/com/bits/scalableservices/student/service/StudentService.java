@@ -67,7 +67,7 @@ public class StudentService {
 		Student student = studentRepository.findByStudentId(studentId);
 
 		Department department = restTemplate
-				.getForObject("http://DEPARTMENT-SERVICE/departments/" + student.getDepartmentId(), Department.class);
+				.getForObject("http://department-service/departments/" + student.getDepartmentId(), Department.class);
 
 //        CourseList courseList =
 //                restTemplate.getForObject(

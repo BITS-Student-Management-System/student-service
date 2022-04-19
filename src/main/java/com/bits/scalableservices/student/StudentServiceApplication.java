@@ -15,7 +15,6 @@ import com.bits.scalableservices.student.config.DozerMappingConfig;
 public class StudentServiceApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(StudentServiceApplication.class, args);
 	}
 
