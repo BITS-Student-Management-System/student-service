@@ -74,10 +74,6 @@ public class StudentService {
 		ResponseTemplate responseTemplate = new ResponseTemplate();
 		Student student = studentRepository.findByStudentId(studentId);
 
-//		Department department = restTemplate
-//				.getForObject("http://DEPARTMENT-SERVICE/departments/" + student.getDepartmentId(), Department.class);
-//
-
 		Department department =  departmentClient.getDepartmentDetails(student.getDepartmentId());
 		List<Course> coursesList = courseClient.getCourseDetails(student.getDepartmentId());
 		responseTemplate.setStudent(student);
