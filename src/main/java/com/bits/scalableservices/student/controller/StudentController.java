@@ -30,7 +30,7 @@ public class StudentController {
 	public ResponseEntity<Object> getStudentDetails(@PathVariable("id") Long studentId) {
 		log.info("Inside getStudentWithDepartment of StudentController");
 		try {
-			return new ResponseEntity<>(studentService.getStudentWithDepartment(studentId), HttpStatus.OK);
+			return new ResponseEntity<>(studentService.getStudentDetails(studentId), HttpStatus.OK);
 		} catch (Exception ex) {
 			return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
 		}

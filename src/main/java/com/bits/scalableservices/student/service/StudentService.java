@@ -47,10 +47,24 @@ public class StudentService {
 	@Autowired
 	CourseClient courseClient;
 
+	public ResponseTemplate getStudentDetails(Long studentId) {
+		log.info("Inside getStudentWithDepartment of StudentService");
+		ResponseTemplate responseTemplate = new ResponseTemplate();
+		Student student = studentRepository.findByStudentId(studentId);
+
+		Department department =  departmentClient.getDepartmentDetails(student.getDepartmentId());
+		List<Course> coursesList = courseClient.getCourseDetails(student.getDepartmentId());
+		responseTemplate.setStudent(student);
+		responseTemplate.setDepartment(department);
+		responseTemplate.setCourses(coursesList);
+
+		return responseTemplate;
+	}
+
 	public Student saveStudent(StudentRequest studentRequest) {
 		log.info("Inside saveStudent of StudentService");
 		Student student = studentRepository.save(mapper.map(studentRequest, Student.class));
-		log.info("Sending JMS message to Department Service");
+		log.info("Sending JMS message to Department Service : "+ studentRequest.toString());
 		pushMessageIntoQueueByActiveMQ(studentRequest.getDepartmentId());
 		return student;
 	}
@@ -69,17 +83,5 @@ public class StudentService {
 		return studentRepository.findByStudentId(studentId);
 	}
 
-	public ResponseTemplate getStudentWithDepartment(Long studentId) {
-		log.info("Inside getStudentWithDepartment of StudentService");
-		ResponseTemplate responseTemplate = new ResponseTemplate();
-		Student student = studentRepository.findByStudentId(studentId);
 
-		Department department =  departmentClient.getDepartmentDetails(student.getDepartmentId());
-		List<Course> coursesList = courseClient.getCourseDetails(student.getDepartmentId());
-		responseTemplate.setStudent(student);
-		responseTemplate.setDepartment(department);
-		responseTemplate.setCourses(coursesList);
-
-		return responseTemplate;
-	}
 }
